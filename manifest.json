@@ -1,0 +1,6 @@
+{
+    "name": "Webpage Cacher",
+    "version": "0.1",
+    "description": "Allows users to cache webpages so that they can browse through them offline",
+    "manifest_version": 2
+}
