@@ -4,8 +4,9 @@
     "description": "Allows users to cache webpages so that they can browse through them offline",
     "manifest_version": 2,
     "permissions": [
-        "declarativeContent",
-        "unlimitedStorage"
+        "storage",
+        "unlimitedStorage",
+        "activeTab"
     ],
     "background": {
         "scripts": ["background.js"],
