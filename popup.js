@@ -50,8 +50,7 @@ async function getCurrentPageSource() {
 }
 
 function scrapeThePage() {
-    var html_source = document.documentElement.outerHTML;
-    return "<!DOCTYPE html>\n" + html_source;
+    return document.documentElement.outerHTML;
 }
 
 function storePageSource(pageUrl, pageSource) {

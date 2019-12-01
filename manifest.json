@@ -6,7 +6,11 @@
     "permissions": [
         "storage",
         "unlimitedStorage",
-        "activeTab"
+        "activeTab",
+        "webNavigation",
+        "http://*/*",
+        "https://*/*",
+        "<all_urls>"
     ],
     "background": {
         "page": "background.html",

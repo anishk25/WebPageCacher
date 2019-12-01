@@ -23,6 +23,27 @@ class IndexedDb {
         }
     }
 
+    getItem(key, callback) {
+        const idb = window.indexedDB;
+        const dbOpenRequest = idb.open(this.dbName, this.dbVersion);
+        const storeName = this.storeName;
+        var db;
+
+        dbOpenRequest.onsuccess = (function(event) {
+            db = dbOpenRequest.result;
+            getData();
+        });
+
+        function getData() {
+            var tx = db.transaction(storeName, "readonly");
+            var store = tx.objectStore(storeName);
+            var getRequest = store.get(key);
+            getRequest.onsuccess = function(event) {
+                callback(getRequest.result);
+            }
+        }
+    }
+
     static createObjectStore(version, dbName, storeName, primaryKey) {
         const idb = window.indexedDB;
         var openRequest = idb.open(dbName, version);
