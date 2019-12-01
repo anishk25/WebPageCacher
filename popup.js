@@ -1,4 +1,5 @@
 import {WEB_CACHE_DB_NAME, WEB_PAGE_STORE_NAME,WEB_CACHE_DB_VERSION} from './constants.js';
+import {IndexedDb} from './indexed_db.js'
 
 document.addEventListener('DOMContentLoaded', function() {
     documentLoaded();
@@ -54,24 +55,11 @@ function scrapeThePage() {
 }
 
 function storePageSource(pageUrl, pageSource) {
-    const idb = window.indexedDB;
-    const dbOpenRequest = idb.open(WEB_CACHE_DB_NAME, WEB_CACHE_DB_VERSION);
-
-    var db;
-
-    dbOpenRequest.onsuccess = (function(event) {
-        db = dbOpenRequest.result;
-        addData();
-    });
-
-    function addData() {
-        var tx = db.transaction(WEB_PAGE_STORE_NAME, "readwrite");
-        var store = tx.objectStore(WEB_PAGE_STORE_NAME);
-        var item = {
-            url: pageUrl,
-            page_source: pageSource,
-            created: new Date().getTime()
-        };
-        store.add(item);
-    }
+    const db = new IndexedDb(WEB_CACHE_DB_NAME, WEB_CACHE_DB_VERSION, WEB_PAGE_STORE_NAME);
+    var item = {
+        url: pageUrl,
+        page_source: pageSource,
+        created: new Date().getTime()
+    };
+    db.storeItem(item);
 }

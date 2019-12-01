@@ -1,4 +1,5 @@
 import {WEB_CACHE_DB_NAME, WEB_PAGE_STORE_NAME, WEB_CACHE_DB_VERSION} from './constants.js';
+import {IndexedDb} from './indexed_db.js'
 
 chrome.runtime.onInstalled.addListener(function(){
 
@@ -7,12 +8,5 @@ chrome.runtime.onInstalled.addListener(function(){
         return;
     }
 
-    const idb = window.indexedDB;
-    var openRequest = idb.open(WEB_CACHE_DB_NAME, WEB_CACHE_DB_VERSION);
-    openRequest.onupgradeneeded = function(event) {
-        var db = event.target.result;
-        if (! db.objectStoreNames.contains(WEB_PAGE_STORE_NAME)) {
-            db.createObjectStore(WEB_PAGE_STORE_NAME, {keyPath: 'url'});
-        }
-    }
+    IndexedDb.createObjectStore(WEB_CACHE_DB_VERSION, WEB_CACHE_DB_NAME, WEB_PAGE_STORE_NAME, 'url');
 });
