@@ -13,21 +13,19 @@ chrome.runtime.onInstalled.addListener(function(){
     IndexedDb.createObjectStore(WEB_CACHE_DB_VERSION, WEB_CACHE_DB_NAME, WEB_PAGE_STORE_NAME, 'url');
 });
 
-// chrome.webNavigation.onCompleted.addListener(function(details) {
-//     var url = details.url;
-//     console.log("Url of completed page is ")
-// });
-
 chrome.webNavigation.onErrorOccurred.addListener(function(details) {
     if (!navigator.onLine) {
         // load cached version of page
         var url = details.url;
         var tabId = details.tabId;
+        console.log("Url is " + url);
+        
         webPageDb.getItem(url, function(result) {
             if (result == null) {
                 return;
             }
             var pageSource = result.page_source;
+            console.log("YOOOOOO!!");
             chrome.tabs.executeScript(
                 tabId,
                 {code: 'document.documentElement.outerHTML = ' + pageSource + ';'}
