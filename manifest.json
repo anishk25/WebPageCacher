@@ -8,7 +8,7 @@
         "unlimitedStorage",
         "activeTab",
         "webNavigation",
-        {"fileSystem": ["write", "retainEntries", "directory"]}
+        "fileSystem"
     ],
     "background": {
         "page": "background.html",
