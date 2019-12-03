@@ -19,13 +19,12 @@ chrome.webNavigation.onErrorOccurred.addListener(function(details) {
         var url = details.url;
         var tabId = details.tabId;
         console.log("Url is " + url);
-        
+
         webPageDb.getItem(url, function(result) {
             if (result == null) {
                 return;
             }
             var pageSource = result.page_source;
-            console.log("YOOOOOO!!");
             chrome.tabs.executeScript(
                 tabId,
                 {code: 'document.documentElement.outerHTML = ' + pageSource + ';'}
