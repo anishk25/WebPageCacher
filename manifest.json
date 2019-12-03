@@ -8,9 +8,7 @@
         "unlimitedStorage",
         "activeTab",
         "webNavigation",
-        "http://*/*",
-        "https://*/*",
-        "<all_urls>"
+        {"fileSystem": ["write", "retainEntries", "directory"]}
     ],
     "background": {
         "page": "background.html",
